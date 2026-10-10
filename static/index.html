@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>智能旅行助手</title>
+  <link rel="stylesheet" href="/static/style.css?v=6" />
+</head>
+<body>
+  <header class="hero">
+    <h1>🧳 智能旅行助手</h1>
+    <p>输入城市和日期，自动查询火车票、推荐酒店、预报天气并规划游玩路线</p>
+  </header>
+
+  <main class="container layout">
+    <!-- 左栏：所有输入 -->
+    <div class="col col-left">
+      <section class="card chat-card">
+        <h2>💬 自由问答</h2>
+        <p class="chat-hint">问我天气、景点、车次等任意问题，助手会自己决定查什么数据来回答。</p>
+        <div class="chat-input-row">
+          <input id="chat-input" type="text" placeholder="例如：苏州明天天气怎么样？" />
+          <button id="chat-btn" type="button">提问</button>
+        </div>
+      </section>
+
+      <section class="card form-card">
+        <form id="plan-form">
+          <div class="field">
+            <label for="departure_city">所在城市</label>
+            <input id="departure_city" type="text" placeholder="例如：北京" required />
+          </div>
+          <div class="field">
+            <label for="arrival_city">目的地城市</label>
+            <input id="arrival_city" type="text" placeholder="例如：上海" required />
+          </div>
+          <div class="field">
+            <label for="departure_date">出发日期</label>
+            <input id="departure_date" type="date" required />
+          </div>
+          <div class="field">
+            <label for="days">旅行天数</label>
+            <input id="days" type="number" min="1" max="30" value="3" required />
+          </div>
+          <div class="field">
+            <label for="transfer_city">中转城市（可选，用于对比票价）</label>
+            <input id="transfer_city" type="text" placeholder="例如：南京" />
+          </div>
+          <div class="field field-full">
+            <label for="requirements">个人需求（可选，自然语言描述）</label>
+            <textarea id="requirements" rows="3" placeholder="例如：希望上午10点左右出发、在合肥南站上车、酒店价格300-500元、偏好园林类景点……"></textarea>
+          </div>
+          <button type="submit" id="submit-btn">生成旅行方案</button>
+        </form>
+      </section>
+    </div>
+
+    <!-- 右栏：所有输出 -->
+    <div class="col col-right">
+      <div id="chat-answer" class="card" hidden></div>
+
+      <section id="error" class="error" hidden></section>
+
+      <section id="city-picker" class="card city-picker" hidden></section>
+
+      <section id="loading" class="loading" hidden>
+        <div class="spinner"></div>
+        <p>正在查询车次、酒店、天气并规划路线，请稍候…</p>
+      </section>
+
+      <section id="result" hidden>
+        <div id="warnings-section" hidden></div>
+        <div id="weather-section" class="card"></div>
+        <div id="plans-section"></div>
+        <div id="feedback-section" class="card" hidden>
+          <h2>💬 反馈修改</h2>
+          <p style="color:#64748b;font-size:13px;margin-top:0">对方案不满意？说明你的要求，我会据此重新调整方案。</p>
+          <textarea id="feedback" rows="3" placeholder="例如：出发时间改成9点左右、酒店要200元以下、不想中转……"></textarea>
+          <button id="feedback-btn" type="button">按反馈修改方案</button>
+        </div>
+        <div id="tips-section" class="card"></div>
+        <div id="trace-section"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/static/app.js?v=6"></script>
+</body>
+</html>
